@@ -4,17 +4,8 @@
     height: 500px;
 }
 
-.answer:hover {
-    background: white;
-    color: teal;
-}
-
-#game-btn {
-    background: white;
-    color: teal;
-    padding: 10px;
-}
-
-#game-btn:hover {
-    border: solid blue 2px;
+#ansA,
+#ansB,
+#ansC {
+    padding: 5px;
 }

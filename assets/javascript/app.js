@@ -95,7 +95,7 @@ var game = {
 
     initiateGame: function() {
       $("#question").empty();
-      $("#question").html("<span id='game-btn'>Start</span>");
+      $("#question").html("<span id='game-btn' class='btn btn-default'>Start</span>");
       this.score = 0;
       this.answered = 0;
       this.currentQuestion = 0;
@@ -106,11 +106,11 @@ var game = {
         $("#question").empty();
         $("#question").html(this.myQuestions[cq].question);
         $("#ansA").empty();
-        $("#ansA").html("<p class='answer'>" + this.myQuestions[cq].answers.a + "</p>");
+        $("#ansA").html("<div class='answer btn btn-info btn-lg btn-block'>" + this.myQuestions[cq].answers.a + "</div>");
         $("#ansB").empty();
-        $("#ansB").html("<p class='answer'>" + this.myQuestions[cq].answers.b + "</p>");
+        $("#ansB").html("<div class='answer btn btn-info btn-lg btn-block'>" + this.myQuestions[cq].answers.b + "</div>");
         $("#ansC").empty();
-        $("#ansC").html("<p class='answer'>" + this.myQuestions[cq].answers.c + "</p>");
+        $("#ansC").html("<div class='answer btn btn-info btn-lg btn-block'>" + this.myQuestions[cq].answers.c + "</div>");
       }
 
     },
