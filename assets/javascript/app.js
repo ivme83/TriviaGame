@@ -10,7 +10,7 @@ var timer = {
       if(display) {
         this.time = 10;
       } else {
-        this.time = 3;
+        this.time = 2;
       }
       timerInterval = setInterval(timer.count, 1000);
       timing = true;
@@ -34,7 +34,6 @@ var timer = {
         game.drawFeedback(false);
       } else {
         timer.time--;
-        console.log(timer.time);
         game.drawTimer(timer.time);
       }
     } else {
@@ -44,7 +43,6 @@ var timer = {
         game.progressGame();
       } else {
         timer.time--;
-        console.log(timer.time);
       }      
     }
 
@@ -65,40 +63,63 @@ var game = {
 
   myQuestions: [
       {
-        question: "Who is the strongest?",
+        question: "Who is the host of Welcome to Night Vale?",
         answers: {
-          a: "Superman",
-          b: "The Terminator",
-          c: "Waluigi"
+          a: "Kevin",
+          b: "Old Woman Josie",
+          c: "Cecil Palmer"
         },
         correctAnswer: "c"
       },
       {
-        question: "What is the best site ever created?",
+        question: "How high does Khoshekh float off the ground?",
         answers: {
-          a: "SitePoint",
-          b: "Simple Steps Code",
-          c: "Trick question; they're both the best"
-        },
-        correctAnswer: "c"
-      },
-      {
-        question: "Where is Waldo really?",
-        answers: {
-          a: "Antarctica",
-          b: "Minding his own business, so stop asking",
-          c: "Sitting in a tree",
+          a: "1 inch",
+          b: "4 feet",
+          c: "Cats can't float!"
         },
         correctAnswer: "b"
+      },
+      {
+        question: "What are the names of the Angels?",
+        answers: {
+          a: "Erika",
+          b: "Marcus Vanston",
+          c: "Angels don't have names",
+        },
+        correctAnswer: "a"
+      },
+      {
+        question: "What are the hours of the dog park?",
+        answers: {
+          a: "Sun up to sun down",
+          b: "Night time only",
+          c: "The dog park has no hours, the dog park is forbidden!",
+        },
+        correctAnswer: "c"
+      },
+      {
+        question: "Who is the worst?",
+        answers: {
+          a: "Steve Carlsberg!",
+          b: "The Secret Police",
+          c: "Michelle Nguyen",
+        },
+        correctAnswer: "a"
       }
     ],
 
     initiateGame: function() {
+      $("#ansA").empty();
+      $("#ansB").empty();
+      $("#ansC").empty();
       $("#question").empty();
-      $("#question").html("<span id='game-btn' class='btn btn-default'>Start</span>");
+      $("#timer").empty();
+      $("#timer").html("<span id='game-btn' class='btn btn-default'>Start</span>");
       this.score = 0;
       this.answered = 0;
       this.currentQuestion = 0;
+      this.gameOn = false;
     },
 
     drawQA: function(cq) {
@@ -122,9 +143,9 @@ var game = {
       $("#ansB").empty();
       $("#ansC").empty();
       if (fb) {
-        $("#question").html(this.getCurrentCA() + " is the correct answer!");
+        $("#question").html(this.getCurrentCA() + " is the correct answer! The Glow Cloud glows warmly.");
       } else {
-        $("#question").html("Sorry that is incorrect!");
+        $("#question").html("Sorry that is incorrect! Please report to City Hall for re-education.");
         $("#ansA").html("The correct answer is " + this.getCurrentCA());
       }
       timer.displayFalse();
@@ -146,7 +167,7 @@ var game = {
     },
 
     startGame: function() {
-      gameOn = true;
+      this.gameOn = true;
       timer.displayTrue();
       timer.start();
       this.drawTimer(10);
@@ -186,6 +207,8 @@ var game = {
     },
 
     drawEndScreen: function() {
+      $("#timer").empty();
+      $("#timer").html("<span id='game-btn' class='btn btn-default'>Restart</span>");
       $("#question").empty();
       $("#question").html("You have finished!");
       $("#ansA").empty();
@@ -200,10 +223,6 @@ var game = {
 
 $(document).ready(function() {
   game.initiateGame();
-  
-  $("#game-btn").on("click", function() {
-    game.startGame();
-  });
 
   $("#ansA").on("click", function() {
     game.checkAns("a");
@@ -217,4 +236,12 @@ $(document).ready(function() {
     game.checkAns("c");
   });
 
+});
+
+$(document).on("click", "#game-btn", function(){
+  if (game.gameOn) {
+    game.initiateGame();
+  } else {
+    game.startGame();
+  }
 });
